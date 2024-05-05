@@ -1,0 +1,8 @@
+{
+  "name": "Finis",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite",
+  "id": "79d7fccb"
+}
