@@ -1,0 +1,57 @@
+.item-native {
+  display: none;
+}
+
+ion-content {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  max-width: 493px;
+}
+
+/* width classes */
+.w-100 {
+  width: 100%;
+}
+
+/* flex classes */
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.gap-1 {
+  gap: 0.25rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}

@@ -1,0 +1,21 @@
+.or {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  &:before {
+    display: block;
+    content: "";
+    width: 20%;
+    height: 0.5px;
+    background-color: black;
+    margin-right: 1rem;
+  }
+  &:after {
+    display: block;
+    content: "";
+    width: 20%;
+    height: 0.5px;
+    background-color: black;
+    margin-left: 1rem;
+  }
+}

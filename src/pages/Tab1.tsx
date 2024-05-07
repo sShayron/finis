@@ -1,8 +1,17 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Tab1.css';
+import {
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
+import ExploreContainer from "../components/ExploreContainer";
+import { useAuth } from "../providers/AuthProvider";
 
 const Tab1: React.FC = () => {
+  const { login, logout } = useAuth();
+
   return (
     <IonPage>
       <IonHeader>
@@ -17,6 +26,8 @@ const Tab1: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <ExploreContainer name="Tab 1 page" />
+        <IonButton onClick={login}>Login</IonButton>
+        <IonButton onClick={logout}>Logout</IonButton>
       </IonContent>
     </IonPage>
   );

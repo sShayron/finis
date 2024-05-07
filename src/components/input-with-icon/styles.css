@@ -1,0 +1,33 @@
+.input-with-icon {
+  position: relative;
+  --border-radius: 10px;
+  --border-width: 0;
+}
+.input-with-icon .icon-wrap {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+}
+
+.input-with-icon .icon-wrap ion-icon {
+  font-size: 1.5rem;
+}
+.input-with-icon .icon-wrap ion-icon {
+  --ion-color-base: #00000080;
+}
+.input-with-icon .login-input.has-focus + .icon-wrap ion-icon {
+  --ion-color-base: var(--ion-color-primary);
+}
+
+.input-with-icon
+  .login-input.input-fill-solid.sc-ion-input-md-h
+  .input-wrapper.sc-ion-input-md {
+  border-start-start-radius: var(--border-radius);
+  border-start-end-radius: var(--border-radius);
+  border-end-end-radius: var(--border-radius);
+  border-end-start-radius: var(--border-radius);
+  border-bottom: none;
+  margin-bottom: 1rem;
+  padding-right: 3rem;
+}

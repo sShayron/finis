@@ -1,7 +1,16 @@
 {
   "name": "Finis",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "enterprise": {
+      "keyId": 18563,
+      "productKey": "key_f18373d1b0394cd79f89dd43bf7542f4",
+      "appId": "79d7fccb",
+      "orgId": "5ff83762-555e-4c2c-9001-adfeec88db7a",
+      "registries": [
+        "@ionic-enterprise;https://registry.ionicframework.com/"
+      ]
+    }
   },
   "type": "react-vite",
   "id": "79d7fccb"
