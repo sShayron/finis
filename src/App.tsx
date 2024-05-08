@@ -15,6 +15,7 @@ import Tab1 from "./pages/Tab1";
 import Tab2 from "./pages/Tab2";
 import Tab3 from "./pages/Tab3";
 import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
 
 import { SessionVaultProvider } from "./providers/SessionVaultProvider";
 import { AuthProvider } from "./providers/AuthProvider";
@@ -60,6 +61,9 @@ const App: React.FC = () => (
         <IonReactRouter>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/registrar">
+            <Register />
           </Route>
           <Route exact path="/">
             <Redirect to="/in/tab1" />

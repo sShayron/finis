@@ -2,4 +2,6 @@
 http://ionicframework.com/docs/theming/ */
 * {
     --ion-color-primary: #FBBC05;
+    --padding-top: 1.5rem;
+    --padding-bottom: 1.5rem;
 }
