@@ -7,7 +7,6 @@ import {
   IonPage,
   IonRouterLink,
   IonText,
-  IonToast,
 } from "@ionic/react";
 
 import { cashOutline, mailOutline, eyeOffOutline } from "ionicons/icons";
@@ -20,7 +19,8 @@ import {
 import "./styles.css";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AuthService } from "../../services/auth-service";
+import { AuthService } from "../../services/AuthService";
+import { useToast } from "../../providers";
 
 interface LoginForm {
   email: string;
@@ -29,9 +29,7 @@ interface LoginForm {
 
 export const Login = () => {
   const [loading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [msg, setMsg] = useState("Usuário ou senha inválidos");
-  const [toastColor, setToastColor] = useState("danger");
+  const { show } = useToast();
   const {
     register,
     handleSubmit,
@@ -42,13 +40,9 @@ export const Login = () => {
     try {
       setLoading(true);
       await AuthService.signIn(data);
-      setToastColor("success");
-      setMsg("Usuário autenticado com sucesso!");
-      setIsOpen(true);
+      show("Usuário autenticado com sucesso!", "success");
     } catch (e) {
-      setMsg("Erro ao efetuar login");
-      setIsOpen(true);
-      setToastColor("danger");
+      show("Erro ao efetuar login", "danger");
       console.error(e);
     } finally {
       setLoading(false);
@@ -58,14 +52,6 @@ export const Login = () => {
   return (
     <IonPage className="login-page">
       <IonLoading isOpen={loading} />
-      <IonToast
-        position="top"
-        isOpen={isOpen}
-        message={msg}
-        duration={5000}
-        color={toastColor}
-        onDidDismiss={() => setIsOpen(false)}
-      ></IonToast>
       <IonContent>
         <div className="centered column ion-padding-top ion-margin">
           {/* icon row */}

@@ -17,8 +17,7 @@ import Tab3 from "./pages/Tab3";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 
-import { SessionVaultProvider } from "./providers/SessionVaultProvider";
-import { AuthProvider } from "./providers/AuthProvider";
+import { AuthProvider, SessionVaultProvider, ToastProvider } from "./providers";
 import { PrivateRoute } from "./components/PrivateRoute";
 
 /* Core CSS required for Ionic components to work properly */
@@ -56,54 +55,56 @@ setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <SessionVaultProvider>
-      <AuthProvider>
-        <IonReactRouter>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/registrar">
-            <Register />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/in/tab1" />
-          </Route>
-          <Route path="/in">
-            <IonTabs>
-              <IonRouterOutlet>
-                <Route exact path="/in/tab1">
-                  <PrivateRoute>
-                    <Tab1 />
-                  </PrivateRoute>
-                </Route>
-                <Route exact path="/in/tab2">
-                  <PrivateRoute>
-                    <Tab2 />
-                  </PrivateRoute>
-                </Route>
-                <Route path="/in/tab3">
-                  <Tab3 />
-                </Route>
-              </IonRouterOutlet>
-              <IonTabBar slot="bottom">
-                <IonTabButton tab="tab1" href="/in/tab1">
-                  <IonIcon aria-hidden="true" icon={triangle} />
-                  <IonLabel>Tab 1</IonLabel>
-                </IonTabButton>
-                <IonTabButton tab="tab2" href="/in/tab2">
-                  <IonIcon aria-hidden="true" icon={ellipse} />
-                  <IonLabel>Tab 2</IonLabel>
-                </IonTabButton>
-                <IonTabButton tab="tab3" href="/in/tab3">
-                  <IonIcon aria-hidden="true" icon={square} />
-                  <IonLabel>Tab 3</IonLabel>
-                </IonTabButton>
-              </IonTabBar>
-            </IonTabs>
-          </Route>
-        </IonReactRouter>
-      </AuthProvider>
-    </SessionVaultProvider>
+    <ToastProvider>
+      <SessionVaultProvider>
+        <AuthProvider>
+          <IonReactRouter>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/registrar">
+              <Register />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/in/tab1" />
+            </Route>
+            <Route path="/in">
+              <IonTabs>
+                <IonRouterOutlet>
+                  <Route exact path="/in/tab1">
+                    <PrivateRoute>
+                      <Tab1 />
+                    </PrivateRoute>
+                  </Route>
+                  <Route exact path="/in/tab2">
+                    <PrivateRoute>
+                      <Tab2 />
+                    </PrivateRoute>
+                  </Route>
+                  <Route path="/in/tab3">
+                    <Tab3 />
+                  </Route>
+                </IonRouterOutlet>
+                <IonTabBar slot="bottom">
+                  <IonTabButton tab="tab1" href="/in/tab1">
+                    <IonIcon aria-hidden="true" icon={triangle} />
+                    <IonLabel>Tab 1</IonLabel>
+                  </IonTabButton>
+                  <IonTabButton tab="tab2" href="/in/tab2">
+                    <IonIcon aria-hidden="true" icon={ellipse} />
+                    <IonLabel>Tab 2</IonLabel>
+                  </IonTabButton>
+                  <IonTabButton tab="tab3" href="/in/tab3">
+                    <IonIcon aria-hidden="true" icon={square} />
+                    <IonLabel>Tab 3</IonLabel>
+                  </IonTabButton>
+                </IonTabBar>
+              </IonTabs>
+            </Route>
+          </IonReactRouter>
+        </AuthProvider>
+      </SessionVaultProvider>
+    </ToastProvider>
   </IonApp>
 );
 

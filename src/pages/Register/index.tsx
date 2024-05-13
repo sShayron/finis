@@ -7,7 +7,6 @@ import {
   IonPage,
   IonText,
   IonTitle,
-  IonToast,
   IonToolbar,
 } from "@ionic/react";
 import { InputWithIcon } from "../../components";
@@ -19,7 +18,8 @@ import {
 } from "ionicons/icons";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
-import { AuthService } from "../../services/auth-service";
+import { AuthService } from "../../services/AuthService";
+import { useToast } from "../../providers";
 
 interface RegisterForm {
   name: string;
@@ -30,9 +30,7 @@ interface RegisterForm {
 
 export const Register = () => {
   const [loading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [msg, setMsg] = useState("Preencha todos os dados");
-  const [toastColor, setToastColor] = useState("danger");
+  const { show } = useToast();
   const {
     register,
     handleSubmit,
@@ -43,13 +41,9 @@ export const Register = () => {
     try {
       setLoading(true);
       await AuthService.signUp(data);
-      setToastColor("success");
-      setMsg("Usuário criado com sucesso!");
-      setIsOpen(true);
+      show("Usuário criado com sucesso!", "success");
     } catch (e) {
-      setMsg("Erro ao criar usuário");
-      setIsOpen(true);
-      setToastColor("danger");
+      show("Erro ao criar usuário", "danger");
       console.error(e);
     } finally {
       setLoading(false);
@@ -59,14 +53,6 @@ export const Register = () => {
   return (
     <IonPage className="register-page">
       <IonLoading isOpen={loading} />
-      <IonToast
-        position="top"
-        isOpen={isOpen}
-        message={msg}
-        duration={5000}
-        color={toastColor}
-        onDidDismiss={() => setIsOpen(false)}
-      ></IonToast>
       <IonHeader>
         <IonToolbar>
           <IonTitle size="large">Registrar</IonTitle>
