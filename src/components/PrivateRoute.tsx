@@ -1,15 +1,9 @@
-import { useEffect } from "react";
+import { PropsWithChildren } from "react";
 import { Redirect } from "react-router";
-import { useAuth } from "../providers/AuthProvider";
+import { useAuth } from "@providers";
 
-export const PrivateRoute = ({ children }: any) => {
-  const { getAccessToken, isAuthenticated } = useAuth();
-
-  // Calling `getAccessToken()` will check if the session is valid,
-  // and update `isAuthenticated` accordingly.
-  useEffect(() => {
-    getAccessToken();
-  }, [getAccessToken]);
+export const PrivateRoute: React.FC<PropsWithChildren> = ({ children }) => {
+  const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) return <Redirect to="/login" />;
   return children;

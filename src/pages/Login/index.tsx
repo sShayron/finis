@@ -8,19 +8,12 @@ import {
   IonRouterLink,
   IonText,
 } from "@ionic/react";
-
 import { cashOutline, mailOutline, eyeOffOutline } from "ionicons/icons";
-import {
-  InputWithIcon,
-  GoogleIcon,
-  FacebookIcon,
-  XIcon,
-} from "../../components";
+import { InputWithIcon, GoogleIcon, FacebookIcon, XIcon } from "@components";
 import "./styles.css";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AuthService } from "../../services/AuthService";
-import { useToast } from "../../providers";
+import { useAuth, useToast } from "@providers";
 
 interface LoginForm {
   email: string;
@@ -29,17 +22,19 @@ interface LoginForm {
 
 export const Login = () => {
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
   const { show } = useToast();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginForm>();
+
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     console.log(data);
     try {
       setLoading(true);
-      await AuthService.signIn(data);
+      await login(data);
       show("Usuário autenticado com sucesso!", "success");
     } catch (e) {
       show("Erro ao efetuar login", "danger");

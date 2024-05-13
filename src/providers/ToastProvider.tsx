@@ -1,13 +1,11 @@
 import { IonToast } from "@ionic/react";
-import { createContext, useContext, useState } from "react";
+import { PropsWithChildren, createContext, useContext, useState } from "react";
 
 const ToastContext = createContext<{
   show: (msg: string, color: HTMLIonToastElement["color"]) => void;
 }>({ show: () => console.log("Not implemented") });
 
-export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const ToastProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [msg, setMsg] = useState("Usuário ou senha inválidos");
   const [toastColor, setToastColor] =

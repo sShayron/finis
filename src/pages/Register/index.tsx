@@ -9,7 +9,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { InputWithIcon } from "../../components";
+import { InputWithIcon } from "@components";
 import {
   eyeOffOutline,
   mailOutline,
@@ -18,8 +18,8 @@ import {
 } from "ionicons/icons";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
-import { AuthService } from "../../services/AuthService";
-import { useToast } from "../../providers";
+import { AuthService } from "@services";
+import { useToast } from "@providers";
 
 interface RegisterForm {
   name: string;
