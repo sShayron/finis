@@ -16,28 +16,29 @@ import {
   personOutline,
   phonePortraitOutline,
 } from "ionicons/icons";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { AuthService } from "@services";
 import { useToast } from "@providers";
-
-interface RegisterForm {
-  name: string;
-  email: string;
-  password: string;
-  phoneNumber: string;
-}
+import { RegisterForm, schema } from "./register.form";
 
 export const Register = () => {
   const [loading, setLoading] = useState(false);
   const { show } = useToast();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterForm>();
+  const form = useForm<RegisterForm, RegisterForm>({
+    defaultValues: {
+      name: "",
+      email: "",
+      phoneNumber: "",
+      password: "",
+      confirmPassword: "",
+    },
+    resolver: yupResolver(schema),
+  });
+  const { handleSubmit } = form;
+
   const onSubmit: SubmitHandler<RegisterForm> = async (data) => {
-    console.log(data);
     try {
       setLoading(true);
       await AuthService.signUp(data);
@@ -50,6 +51,10 @@ export const Register = () => {
     }
   };
 
+  const onInvalid = () => {
+    show("Preencha os campos corretamente", "danger");
+  };
+
   return (
     <IonPage className="register-page">
       <IonLoading isOpen={loading} />
@@ -60,60 +65,61 @@ export const Register = () => {
       </IonHeader>
       <IonContent>
         <div className="ion-margin">
-          <form className="w-100" onSubmit={handleSubmit(onSubmit)}>
-            <IonText>
-              <h4>Criando sua conta gratuitamente</h4>
-            </IonText>
-            {/* inputs row */}
-            <div className="centered column w-100 ion-padding-top">
-              <InputWithIcon
-                name="name"
-                register={register}
-                placeholder="Nome completo"
-                icon={personOutline}
-              />
-              <InputWithIcon
-                name="email"
-                register={register}
-                placeholder="E-mail"
-                icon={mailOutline}
-              />
-              <InputWithIcon
-                name="phoneNumber"
-                register={register}
-                placeholder="(00) 0000-0000"
-                icon={phonePortraitOutline}
-              />
-              <InputWithIcon
-                type="password"
-                name="password"
-                register={register}
-                placeholder="Senha"
-                icon={eyeOffOutline}
-              />
-            </div>
-            <div className="ion-margin-bottom">
-              <IonCheckbox style={{ fontSize: ".9rem" }} labelPlacement="end">
-                Ao selecionar você concordar com os{" "}
-                <span style={{ color: "var(--ion-color-primary)" }}>
-                  Termos
-                </span>{" "}
-                e{" "}
-                <span style={{ color: "var(--ion-color-primary)" }}>
-                  Condições
-                </span>
-              </IonCheckbox>
-            </div>
-            <div className="">
-              <IonButton
-                color="dark ion-vertical-margin"
-                style={{ width: "100%" }}
-                type="submit"
-              >
-                <span style={{ textTransform: "none" }}>Enviar</span>
-              </IonButton>
-            </div>
-          </form>
+          <FormProvider {...form}>
+            <form
+              className="w-100"
+              onSubmit={handleSubmit(onSubmit, onInvalid)}
+            >
+              <IonText>
+                <h4>Criando sua conta gratuitamente</h4>
+              </IonText>
+              {/* inputs row */}
+              <div className="centered column w-100 ion-padding-top">
+                <InputWithIcon
+                  name="name"
+                  placeholder="Nome completo"
+                  icon={personOutline}
+                />
+                <InputWithIcon
+                  name="email"
+                  placeholder="E-mail"
+                  icon={mailOutline}
+                />
+                <InputWithIcon
+                  name="phoneNumber"
+                  placeholder="(00) 0000-0000"
+                  icon={phonePortraitOutline}
+                />
+                <InputWithIcon
+                  type="password"
+                  name="password"
+                  placeholder="Senha"
+                  icon={eyeOffOutline}
+                />
+              </div>
+              <div className="ion-margin-bottom">
+                <IonCheckbox style={{ fontSize: ".9rem" }} labelPlacement="end">
+                  Ao selecionar você concordar com os{" "}
+                  <span style={{ color: "var(--ion-color-primary)" }}>
+                    Termos
+                  </span>{" "}
+                  e{" "}
+                  <span style={{ color: "var(--ion-color-primary)" }}>
+                    Condições
+                  </span>
+                </IonCheckbox>
+              </div>
+              <div className="">
+                <IonButton
+                  color="dark ion-vertical-margin"
+                  style={{ width: "100%" }}
+                  type="submit"
+                >
+                  <span style={{ textTransform: "none" }}>Enviar</span>
+                </IonButton>
+              </div>
+            </form>
+          </FormProvider>
         </div>
       </IonContent>
     </IonPage>

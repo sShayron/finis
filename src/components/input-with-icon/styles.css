@@ -3,6 +3,7 @@
   --border-radius: 10px;
   --border-width: 0;
 }
+
 .input-with-icon .icon-wrap {
   position: absolute;
   top: 1rem;
@@ -13,15 +14,17 @@
 .input-with-icon .icon-wrap ion-icon {
   font-size: 1.5rem;
 }
+
 .input-with-icon .icon-wrap ion-icon {
   --ion-color-base: #00000080;
 }
-.input-with-icon .login-input.has-focus + .icon-wrap ion-icon {
+
+.input-with-icon .finis-input.has-focus + .icon-wrap ion-icon {
   --ion-color-base: var(--ion-color-primary);
 }
 
 .input-with-icon
-  .login-input.input-fill-solid.sc-ion-input-md-h
+  .finis-input.input-fill-solid.sc-ion-input-md-h
   .input-wrapper.sc-ion-input-md {
   border-start-start-radius: var(--border-radius);
   border-start-end-radius: var(--border-radius);
@@ -30,4 +33,15 @@
   border-bottom: none;
   margin-bottom: 1rem;
   padding-right: 3rem;
+}
+
+.input-with-icon .finis-input.is-invalid {
+  --color: var(--ion-color-danger);
+  label {
+    outline: 1px solid var(--ion-color-danger);
+  }
+}
+
+.finis-error {
+  transform: translateY(-0.75rem);
 }
