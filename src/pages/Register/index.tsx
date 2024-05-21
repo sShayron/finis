@@ -2,14 +2,13 @@ import {
   IonButton,
   IonCheckbox,
   IonContent,
-  IonHeader,
   IonLoading,
   IonPage,
+  IonRouterLink,
   IonText,
-  IonTitle,
-  IonToolbar,
+  useIonRouter,
 } from "@ionic/react";
-import { InputWithIcon } from "@components";
+import { Header, InputWithIcon } from "@components";
 import {
   eyeOffOutline,
   mailOutline,
@@ -24,6 +23,7 @@ import { useToast } from "@providers";
 import { RegisterForm, schema } from "./register.form";
 
 export const Register = () => {
+  const router = useIonRouter();
   const [loading, setLoading] = useState(false);
   const { show } = useToast();
   const form = useForm<RegisterForm, RegisterForm>({
@@ -43,6 +43,7 @@ export const Register = () => {
       setLoading(true);
       await AuthService.signUp(data);
       show("Usuário criado com sucesso!", "success");
+      router.push("/in/tab1");
     } catch (e) {
       show("Erro ao criar usuário", "danger");
       console.error(e);
@@ -51,18 +52,15 @@ export const Register = () => {
     }
   };
 
-  const onInvalid = () => {
+  const onInvalid = (e: any) => {
     show("Preencha os campos corretamente", "danger");
+    console.log(e);
   };
 
   return (
     <IonPage className="register-page">
       <IonLoading isOpen={loading} />
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle size="large">Registrar</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <Header title="Registrar" defaultHref="/login" backButton />
       <IonContent>
         <div className="ion-margin">
           <FormProvider {...form}>
@@ -96,6 +94,12 @@ export const Register = () => {
                   placeholder="Senha"
                   icon={eyeOffOutline}
                 />
+                <InputWithIcon
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirmar senha"
+                  icon={eyeOffOutline}
+                />
               </div>
               <div className="ion-margin-bottom">
                 <IonCheckbox style={{ fontSize: ".9rem" }} labelPlacement="end">
@@ -109,14 +113,28 @@ export const Register = () => {
                   </span>
                 </IonCheckbox>
               </div>
-              <div className="">
+              <div className="d-flex column gap-2">
                 <IonButton
                   color="dark ion-vertical-margin"
                   style={{ width: "100%" }}
                   type="submit"
                 >
-                  <span style={{ textTransform: "none" }}>Enviar</span>
+                  Enviar
                 </IonButton>
+                <div className="d-flex justify-center align-center">
+                  <IonText>Já tem uma conta? </IonText>{" "}
+                  <IonRouterLink
+                    color="primary"
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: ".9rem",
+                      paddingLeft: "0.5rem",
+                    }}
+                    href="/login"
+                  >
+                    Entrar
+                  </IonRouterLink>
+                </div>
               </div>
             </form>
           </FormProvider>

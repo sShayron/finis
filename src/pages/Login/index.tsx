@@ -7,9 +7,16 @@ import {
   IonPage,
   IonRouterLink,
   IonText,
+  useIonRouter,
 } from "@ionic/react";
 import { cashOutline, mailOutline, eyeOffOutline } from "ionicons/icons";
-import { InputWithIcon, GoogleIcon, FacebookIcon, XIcon } from "@components";
+import {
+  InputWithIcon,
+  GoogleIcon,
+  FacebookIcon,
+  XIcon,
+  Button,
+} from "@components";
 import "./styles.css";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -18,6 +25,7 @@ import { LoginForm, schema } from "./login.form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 export const Login = () => {
+  const router = useIonRouter();
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const { show } = useToast();
@@ -32,6 +40,7 @@ export const Login = () => {
       setLoading(true);
       await login(data);
       show("Usuário autenticado com sucesso!", "success");
+      router.push("/in/tab1");
     } catch (e) {
       show("Erro ao efetuar login", "danger");
       console.error(e);
@@ -122,13 +131,9 @@ export const Login = () => {
 
               {/* sign in button row */}
               <div className="w-100" style={{ marginTop: "2rem" }}>
-                <IonButton
-                  color="dark ion-vertical-margin"
-                  style={{ width: "100%" }}
-                  type="submit"
-                >
+                <Button type="submit">
                   <span style={{ textTransform: "none" }}>Entrar</span>
-                </IonButton>
+                </Button>
                 <div className="d-flex justify-center ion-margin-top">
                   <span>Não tem uma conta? </span>
                   <span>&nbsp;</span>

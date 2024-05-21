@@ -1,4 +1,3 @@
-import { AuthResult } from "@ionic-enterprise/auth";
 import {
   BrowserVault,
   DeviceSecurityType,
@@ -7,6 +6,7 @@ import {
   VaultType,
 } from "@ionic-enterprise/identity-vault";
 import { isPlatform } from "@ionic/react";
+import { AuthResult } from "@types";
 import { PropsWithChildren, createContext, useContext } from "react";
 
 const createVault = (config: IdentityVaultConfig): Vault | BrowserVault => {
