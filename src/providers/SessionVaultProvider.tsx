@@ -17,7 +17,7 @@ export const SessionVaultContext = createContext<{
   },
 });
 
-export const SessionVaultProviqder: React.FC<PropsWithChildren> = ({
+export const SessionVaultProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
   const clearSession = (): Promise<void> => {
