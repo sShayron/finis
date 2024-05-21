@@ -1,27 +1,5 @@
-import {
-  BrowserVault,
-  DeviceSecurityType,
-  IdentityVaultConfig,
-  Vault,
-  VaultType,
-} from "@ionic-enterprise/identity-vault";
-import { isPlatform } from "@ionic/react";
 import { AuthResult } from "@types";
 import { PropsWithChildren, createContext, useContext } from "react";
-
-const createVault = (config: IdentityVaultConfig): Vault | BrowserVault => {
-  return isPlatform("hybrid") ? new Vault(config) : new BrowserVault(config);
-};
-const key = "auth-result";
-const vault = createVault({
-  key: "io.ionic.gettingstartedacreact",
-  type: VaultType.SecureStorage,
-  deviceSecurityType: DeviceSecurityType.None,
-  lockAfterBackgrounded: 5000,
-  shouldClearVaultAfterTooManyFailedAttempts: true,
-  customPasscodeInvalidUnlockAttempts: 2,
-  unlockVaultOnLoad: false,
-});
 
 export const SessionVaultContext = createContext<{
   clearSession: () => Promise<void>;
@@ -39,19 +17,19 @@ export const SessionVaultContext = createContext<{
   },
 });
 
-export const SessionVaultProvider: React.FC<PropsWithChildren> = ({
+export const SessionVaultProviqder: React.FC<PropsWithChildren> = ({
   children,
 }) => {
   const clearSession = (): Promise<void> => {
-    return vault.clear();
+    return Promise.resolve();
   };
 
   const getSession = (): Promise<AuthResult | null> => {
-    return vault.getValue<AuthResult>(key);
+    return Promise.resolve(null);
   };
 
   const setSession = (value?: AuthResult): Promise<void> => {
-    return vault.setValue(key, value);
+    return Promise.resolve();
   };
 
   return (
