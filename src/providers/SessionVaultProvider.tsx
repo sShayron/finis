@@ -1,11 +1,13 @@
 import { AuthResult } from "@types";
-import { PropsWithChildren, createContext, useContext } from "react";
+import { PropsWithChildren, createContext, useContext, useState } from "react";
 
 export const SessionVaultContext = createContext<{
+  session: AuthResult | null;
   clearSession: () => Promise<void>;
   getSession: () => Promise<AuthResult | null>;
   setSession: (value?: AuthResult) => Promise<void>;
 }>({
+  session: null,
   clearSession: () => {
     throw new Error("Method not implemented.");
   },
@@ -20,6 +22,7 @@ export const SessionVaultContext = createContext<{
 export const SessionVaultProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
+  const [session, _setSession] = useState<AuthResult | null>(null);
   const clearSession = (): Promise<void> => {
     return Promise.resolve();
   };
@@ -29,12 +32,13 @@ export const SessionVaultProvider: React.FC<PropsWithChildren> = ({
   };
 
   const setSession = (value?: AuthResult): Promise<void> => {
+    _setSession(value || null);
     return Promise.resolve();
   };
 
   return (
     <SessionVaultContext.Provider
-      value={{ clearSession, getSession, setSession }}
+      value={{ clearSession, getSession, setSession, session }}
     >
       {children}
     </SessionVaultContext.Provider>

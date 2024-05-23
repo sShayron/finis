@@ -4,3 +4,7 @@ export * from "./";
 export * from "./ExploreContainer";
 export * from "./header";
 export * from "./button";
+export * from "./PrivateRoute";
+export * from "./bottom-tabs";
+export * from "./user-header";
+export * from "./card-button";

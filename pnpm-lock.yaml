@@ -26,9 +26,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.4.0
         version: 3.4.0(react-hook-form@7.51.4(react@18.3.1))
-      '@ionic-enterprise/identity-vault':
-        specifier: ^5.14.0
-        version: 5.14.0(typescript@5.4.5)
       '@ionic/react':
         specifier: ^8.0.0
         version: 8.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -928,12 +925,6 @@ packages:
 
   '@humanwhocodes/object-schema@2.0.3':
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
-
-  '@ionic-enterprise/identity-vault@5.14.0':
-    resolution: {integrity: sha512-GIu7bzfyRhJs2LJ/Qd3kxbVmybBDilfuSfa/8sgaD/oH/U4QCs/OpYMHf0kIbe8c2Lc1mXbeqlqp3sA2qhzGDA==}
-    engines: {cordovaDependencies: {3.0.0: {cordova-android: '>=6.3.0'}, 4.0.0: {cordova-android: '>=9.0.0-dev'}, 5.0.0: {cordova: '>=10.0.0', cordova-android: '>=10.0.0'}}}
-    peerDependencies:
-      typescript: '>=3.5'
 
   '@ionic/cli-framework-output@2.2.8':
     resolution: {integrity: sha512-TshtaFQsovB4NWRBydbNFawql6yul7d5bMiW1WYYf17hd99V6xdDdk3vtF51bw6sLkxON3bDQpWsnUc9/hVo3g==}
@@ -3095,9 +3086,6 @@ packages:
       typescript:
         optional: true
 
-  tslib@1.14.1:
-    resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
-
   tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
@@ -4303,11 +4291,6 @@ snapshots:
   '@humanwhocodes/module-importer@1.0.1': {}
 
   '@humanwhocodes/object-schema@2.0.3': {}
-
-  '@ionic-enterprise/identity-vault@5.14.0(typescript@5.4.5)':
-    dependencies:
-      tslib: 1.14.1
-      typescript: 5.4.5
 
   '@ionic/cli-framework-output@2.2.8':
     dependencies:
@@ -6850,8 +6833,6 @@ snapshots:
   tsconfck@3.0.3(typescript@5.4.5):
     optionalDependencies:
       typescript: 5.4.5
-
-  tslib@1.14.1: {}
 
   tslib@2.6.2: {}
 

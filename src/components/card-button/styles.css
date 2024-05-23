@@ -1,0 +1,32 @@
+ion-button {
+  --background: #fff;
+
+  --color: var(--ion-color-dark);
+
+  --border-radius: 1rem;
+  --border-color: var(--ion-color-light-shade);
+  --border-style: solid;
+  --border-width: 1px;
+
+  --box-shadow: 0 3px 5px 0 rgb(0, 0, 0, 0.25);
+  width: 80px;
+  height: 80px;
+
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+}
+
+.card-button-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: none;
+  font-weight: bold;
+
+  ion-icon {
+    width: 24px;
+    height: 24px;
+  }
+}

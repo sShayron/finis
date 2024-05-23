@@ -43,7 +43,7 @@ export const Register = () => {
       setLoading(true);
       await AuthService.signUp(data);
       show("Usuário criado com sucesso!", "success");
-      router.push("/in/tab1");
+      router.push("/login");
     } catch (e) {
       show("Erro ao criar usuário", "danger");
       console.error(e);

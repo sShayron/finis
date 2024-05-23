@@ -12,6 +12,7 @@ export const InputWithIcon = ({
   placeholder: string;
   name: string;
   type?: HTMLIonInputElement["type"];
+  mask?: string;
 }) => {
   const {
     register,

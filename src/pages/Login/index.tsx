@@ -40,7 +40,7 @@ export const Login = () => {
       setLoading(true);
       await login(data);
       show("Usuário autenticado com sucesso!", "success");
-      router.push("/in/tab1");
+      router.push("/in/home");
     } catch (e) {
       show("Erro ao efetuar login", "danger");
       console.error(e);

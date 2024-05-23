@@ -1,0 +1,40 @@
+.user-header {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  padding-top: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  z-index: 1;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  background-color: var(--ion-color-primary);
+}
+
+.user-photo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--ion-color-light-tint);
+}
+
+.user-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.location {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.notifications {
+  position: absolute;
+  right: 1rem;
+  top: 50px;
+}
