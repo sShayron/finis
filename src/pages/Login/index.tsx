@@ -23,6 +23,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useAuth, useToast } from "@providers";
 import { LoginForm, schema } from "./login.form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import logo from '../../components/logo.png';
 
 export const Login = () => {
   const router = useIonRouter();
@@ -61,17 +62,13 @@ export const Login = () => {
           {/* icon row */}
           <div
             className="centered"
-            style={{ width: 200, height: 175, background: "#D9D9D9" }}
+            style={{ width: 250, height: 250 }}
           >
-            <IonIcon size="large" color="primary" icon={cashOutline} />
+            <img src={logo} alt="Logo" style={{ width: '100%', height: '100%' }} />
           </div>
 
           {/* title row */}
           <div className="centered column ion-padding-vertical ion-margin-bottom">
-            <IonText color="dark">
-              <h1>Finis</h1>
-            </IonText>
-
             <IonText color="medium">
               <span>Entre com seu e-mail e senha cadastrados</span>
             </IonText>
