@@ -1,4 +1,4 @@
-ion-button {
+.card-button ion-button {
   --background: #fff;
 
   --color: var(--ion-color-dark);
