@@ -26,7 +26,6 @@ export const schema = yup.object().shape({
   email: yup.string().email().required(requiredMessage),
   phoneNumber: yup
     .string()
-    .transform((val) => formatPhoneNumber(val))
     .required(requiredMessage),
   password: yup
     .string()
