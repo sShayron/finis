@@ -4,11 +4,11 @@ import { useIonRouter } from '@ionic/react';
 import './styles.css';
 import { Header } from "@components";
 
-import { airplane, logoIonic, car, bicycle, home } from 'ionicons/icons';
+import { logoIonic, home, flash, pizza, water } from 'ionicons/icons';
 
-export const Metas = () => {
+export const Despesas = () => {
   const router = useIonRouter();
-  const [selectedTab, setSelectedTab] = useState('emAndamento');
+  const [selectedTab, setSelectedTab] = useState('aPagar');
 
   const handleSegmentChange = (e: CustomEvent) => {
     setSelectedTab(e.detail.value);
@@ -20,84 +20,20 @@ export const Metas = () => {
 
   return (
     <IonPage>
-      <Header title="Metas" defaultHref="/in/home" backButton />
-      <IonContent className="ion-padding metas-container">
+      <Header title="Despesas" defaultHref="/in/home" backButton />
+      <IonContent className="ion-padding despesas-container">
         <IonSegment value={selectedTab} onIonChange={handleSegmentChange}>
-          <IonSegmentButton value="emAndamento">
-            <IonLabel>Em Andamento</IonLabel>
+          <IonSegmentButton value="aPagar">
+            <IonLabel>A pagar</IonLabel>
           </IonSegmentButton>
-          <IonSegmentButton value="conquistadas">
-            <IonLabel>Conquistadas</IonLabel>
+          <IonSegmentButton value="pagas">
+            <IonLabel>Pagas</IonLabel>
           </IonSegmentButton>
         </IonSegment>
 
-        {selectedTab === 'emAndamento' && (
+        {selectedTab === 'aPagar' && (
           <div>
-            {/* Conteúdo da Tab "Em Andamento" */}
-            <IonCard button={true}>
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={airplane} size="large"></IonIcon>
-                  </IonCol>
-                  <IonCol>
-                    <IonCardHeader>
-                      <IonCardTitle>Viagem Internacional</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>Meta de R$15.000 para visitar a Disney</IonCardContent>
-                  </IonCol>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={logoIonic} size="large"></IonIcon>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonCard>
-
-            <IonCard button={true}>
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={car} size="large"></IonIcon>
-                  </IonCol>
-                  <IonCol>
-                    <IonCardHeader>
-                      <IonCardTitle>Carro Novo</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>Meta de R$90.000 para Audi A3</IonCardContent>
-                  </IonCol>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={logoIonic} size="large"></IonIcon>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonCard>
-
-            <IonCard button={true}>
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={bicycle} size="large"></IonIcon>
-                  </IonCol>
-                  <IonCol>
-                    <IonCardHeader>
-                      <IonCardTitle>Bicicleta</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>Meta de R$7.000 para Hupi Naja</IonCardContent>
-                  </IonCol>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={logoIonic} size="large"></IonIcon>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonCard>
-
-            <IonButton expand="full" color="dark">Nova Meta</IonButton>
-
-          </div>
-        )}
-        {selectedTab === 'conquistadas' && (
-          <div>
-            {/* Conteúdo da Tab "Conquistadas" */}
+            {/* Conteúdo da Tab "A pagar" */}
             <IonCard button={true}>
               <IonGrid>
                 <IonRow>
@@ -106,12 +42,80 @@ export const Metas = () => {
                   </IonCol>
                   <IonCol>
                     <IonCardHeader>
-                      <IonCardTitle>Casa Própia</IonCardTitle>
+                      <IonCardTitle>Financiamento Caixa</IonCardTitle>
                     </IonCardHeader>
-                    <IonCardContent>Meta de R$300.000 para imóvel</IonCardContent>
+                    <IonCardContent>R$1.500,00</IonCardContent>
                   </IonCol>
+                </IonRow>
+              </IonGrid>
+            </IonCard>
+
+            <IonCard button={true}>
+              <IonGrid>
+                <IonRow>
                   <IonCol size="auto" className="logo">
-                    <IonIcon icon={logoIonic} size="large"></IonIcon>
+                    <IonIcon icon={home} size="large"></IonIcon>
+                  </IonCol>
+                  <IonCol>
+                    <IonCardHeader>
+                      <IonCardTitle>Condominio</IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent>R$600,00</IonCardContent>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+            </IonCard>
+
+            <IonCard button={true}>
+              <IonGrid>
+                <IonRow>
+                  <IonCol size="auto" className="logo">
+                    <IonIcon icon={pizza} size="large"></IonIcon>
+                  </IonCol>
+                  <IonCol>
+                    <IonCardHeader>
+                      <IonCardTitle>Alimentação</IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent>R$900,00</IonCardContent>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+            </IonCard>
+
+            <IonCard button={true}>
+              <IonGrid>
+                <IonRow>
+                  <IonCol size="auto" className="logo">
+                    <IonIcon icon={flash} size="large"></IonIcon>
+                  </IonCol>
+                  <IonCol>
+                    <IonCardHeader>
+                      <IonCardTitle>Energia</IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent>R$250,00</IonCardContent>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+            </IonCard>
+
+            <IonButton expand="full" color="dark">Nova Despesa</IonButton>
+
+          </div>
+        )}
+        {selectedTab === 'pagas' && (
+          <div>
+            {/* Conteúdo da Tab "Pagas" */}
+            <IonCard button={true}>
+              <IonGrid>
+                <IonRow>
+                  <IonCol size="auto" className="logo">
+                    <IonIcon icon={water} size="large"></IonIcon>
+                  </IonCol>
+                  <IonCol>
+                    <IonCardHeader>
+                      <IonCardTitle>Água</IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent>R$80,00</IonCardContent>
                   </IonCol>
                 </IonRow>
               </IonGrid>

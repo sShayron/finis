@@ -43,6 +43,7 @@ import "@ionic/react/css/palettes/dark.system.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./theme/global.css";
+import { Despesas } from "./pages/Despesas";
 
 setupIonicReact();
 
@@ -68,6 +69,9 @@ const App: React.FC = () => (
                   </Route>
                   <Route exact path="/in/metas">
                     <Metas />
+                  </Route>
+                  <Route exact path="/in/despesas">
+                    <Despesas />
                   </Route>
                   <Route exact path="/in/tab2">
                     <PrivateRoute>
