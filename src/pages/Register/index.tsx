@@ -21,7 +21,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AuthService } from "@services";
 import { useToast } from "@providers";
 import { RegisterForm, schema } from "./register.form";
-import logo from '../../components/logo.png';
 
 export const Register = () => {
   const router = useIonRouter();
@@ -68,12 +67,7 @@ export const Register = () => {
             <form
               className="w-100"
               onSubmit={handleSubmit(onSubmit, onInvalid)}
-            > {/* icon row */}
-            <div
-              className="centered column ion-margin"
             >
-              <img src={logo} alt="Logo" style={{ width: '70%', height: '70%' }} />
-            </div>
               <IonText>
                 <h4>Criando sua conta gratuitamente</h4>
               </IonText>

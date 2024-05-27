@@ -1,15 +1,13 @@
 import {
-  IonButton,
   IonCheckbox,
   IonContent,
-  IonIcon,
   IonLoading,
   IonPage,
   IonRouterLink,
   IonText,
   useIonRouter,
 } from "@ionic/react";
-import { cashOutline, mailOutline, eyeOffOutline } from "ionicons/icons";
+import { mailOutline, eyeOffOutline } from "ionicons/icons";
 import {
   InputWithIcon,
   GoogleIcon,
@@ -18,17 +16,17 @@ import {
   Button,
 } from "@components";
 import "./styles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useAuth, useToast } from "@providers";
 import { LoginForm, schema } from "./login.form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import logo from '../../components/logo.png';
+import logo from "../../components/logo.png";
 
 export const Login = () => {
   const router = useIonRouter();
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, checkAuthentication } = useAuth();
   const { show } = useToast();
   const form = useForm<LoginForm>({
     resolver: yupResolver(schema),
@@ -54,17 +52,27 @@ export const Login = () => {
     show("Preencha email e senha para efetuar o login", "danger");
   };
 
+  useEffect(() => {
+    const checkAuth = () => {
+      if (checkAuthentication()) {
+        router.push("/in/home");
+      }
+    };
+    checkAuth();
+  }, []);
+
   return (
     <IonPage className="login-page">
       <IonLoading isOpen={loading} />
       <IonContent>
         <div className="centered column ion-padding-top ion-margin">
-          {/* icon row */}
-          <div
-            className="centered"
-            style={{ width: 250, height: 250 }}
-          >
-            <img src={logo} alt="Logo" style={{ width: '100%', height: '100%' }} />
+          {/* logo row */}
+          <div className="centered" style={{ width: 250, height: 250 }}>
+            <img
+              src={logo}
+              alt="Logo"
+              style={{ width: "100%", height: "100%" }}
+            />
           </div>
 
           {/* title row */}
