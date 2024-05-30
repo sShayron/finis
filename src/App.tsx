@@ -7,6 +7,9 @@ import Tab3 from "./pages/Tab3";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Metas } from "./pages/Metas";
+import { Despesas } from "./pages/Despesas";
+import { NovaDespesa } from "./pages/Despesas/AddDespesa";
+import { EdtDespesa } from "./pages/Despesas/EdtDespesa";
 
 import {
   AuthProvider,
@@ -38,7 +41,6 @@ import "@ionic/react/css/palettes/dark.system.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./theme/global.css";
-import { Despesas } from "./pages/Despesas";
 
 setupIonicReact();
 
@@ -71,6 +73,12 @@ const App: React.FC = () => (
                     </Route>
                     <Route exact path="/in/despesas">
                       <Despesas />
+                    </Route>
+                    <Route exact path="/in/novadespesa">
+                      <NovaDespesa />
+                    </Route>
+                    <Route exact path="/in/edtdespesa">
+                      <EdtDespesa />
                     </Route>
                     <Route exact path="/in/tab2">
                       <PrivateRoute>
