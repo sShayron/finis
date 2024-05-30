@@ -8,7 +8,7 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Metas } from "./pages/Metas";
 import { Despesas } from "./pages/Despesas";
-import { NewDespesa } from "./pages/Despesas/AddDespesa";
+import { NovaDespesa } from "./pages/Despesas/AddDespesa";
 import { EdtDespesa } from "./pages/Despesas/EdtDespesa";
 
 import {
@@ -74,8 +74,8 @@ const App: React.FC = () => (
                     <Route exact path="/in/despesas">
                       <Despesas />
                     </Route>
-                    <Route exact path="/in/newdespesa">
-                      <NewDespesa />
+                    <Route exact path="/in/novadespesa">
+                      <NovaDespesa />
                     </Route>
                     <Route exact path="/in/edtdespesa">
                       <EdtDespesa />
