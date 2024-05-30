@@ -98,7 +98,7 @@ export const Despesas = () => {
               </IonGrid>
             </IonCard>
 
-            <IonButton expand="full" color="dark">Nova Despesa</IonButton>
+            <IonButton expand="full" color="dark" href='/in/newdespesa'>Nova Despesa</IonButton>
 
           </div>
         )}
