@@ -14,6 +14,10 @@ export const Despesas = () => {
     setSelectedTab(e.detail.value);
   };
 
+  const handleCardClick = () => {
+    router.push('/in/edtdespesa');
+  };
+
   useEffect(() => {
     // Coloque qualquer lógica que precise ser executada ao abrir a página aqui
   }, []);
@@ -34,7 +38,7 @@ export const Despesas = () => {
         {selectedTab === 'aPagar' && (
           <div>
             {/* Conteúdo da Tab "A pagar" */}
-            <IonCard button={true}>
+            <IonCard button={true} onClick={handleCardClick}>
               <IonGrid>
                 <IonRow>
                   <IonCol size="auto" className="logo">
@@ -50,7 +54,7 @@ export const Despesas = () => {
               </IonGrid>
             </IonCard>
 
-            <IonCard button={true}>
+            <IonCard button={true} onClick={handleCardClick}>
               <IonGrid>
                 <IonRow>
                   <IonCol size="auto" className="logo">
@@ -66,7 +70,7 @@ export const Despesas = () => {
               </IonGrid>
             </IonCard>
 
-            <IonCard button={true}>
+            <IonCard button={true} onClick={handleCardClick}>
               <IonGrid>
                 <IonRow>
                   <IonCol size="auto" className="logo">
@@ -82,7 +86,7 @@ export const Despesas = () => {
               </IonGrid>
             </IonCard>
 
-            <IonCard button={true}>
+            <IonCard button={true} onClick={handleCardClick}>
               <IonGrid>
                 <IonRow>
                   <IonCol size="auto" className="logo">
@@ -98,7 +102,7 @@ export const Despesas = () => {
               </IonGrid>
             </IonCard>
 
-            <IonButton expand="full" color="dark" href='/in/newdespesa'>Nova Despesa</IonButton>
+            <IonButton expand="full" color="dark" href='/in/novadespesa'>Nova Despesa</IonButton>
 
           </div>
         )}

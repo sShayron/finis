@@ -122,6 +122,7 @@ export const NovaDespesa = () => {
                   <IonSelectOption value="internet">Internet</IonSelectOption>
                   <IonSelectOption value="moradia">Moradia</IonSelectOption>
                   <IonSelectOption value="veiculos">Veículos</IonSelectOption>
+                  <IonSelectOption value="outros">Outros</IonSelectOption>
                 </IonSelect>
               </div>
               <IonButton
