@@ -4,18 +4,18 @@ import { useIonRouter } from '@ionic/react';
 import './styles.css';
 import { Button, Header, InputWithIcon } from "@components";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { DespesaForm, schema } from '../despesa.form';
+import { MetaForm, schema } from '../meta.form';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { calendarOutline, cashOutline, eyeOffOutline, mailOutline, pencilOutline, personOutline } from 'ionicons/icons';
 import { AuthService } from '@services';
 import { useClient } from '@providers';
 
-export const EdtDespesa = () => {
+export const NovaMeta = () => {
   const router = useIonRouter();
   const { client } = useClient();
   const [loading, setLoading] = useState(false);
   const [recorrencia, setRecorrencia] = useState('Única');
-  const form = useForm<DespesaForm, DespesaForm>({
+  const form = useForm<MetaForm, MetaForm>({
     defaultValues: {
       descricao: "",
       valor: "",
@@ -26,14 +26,14 @@ export const EdtDespesa = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<DespesaForm> = async (data) => {
+  const onSubmit: SubmitHandler<MetaForm> = async (data) => {
     try {
       setLoading(true);
       console.log(data);
-      //await client?.put(
+      //await client?.post(
       //  "/income-expense"
       //);
-      //router.push("/in/despesas");
+      //router.push("/in/metas");
     } catch (e) {
       console.error(e);
     } finally {
@@ -55,7 +55,7 @@ export const EdtDespesa = () => {
 
   return (
     <IonPage>
-      <Header title="Editar Despesa" defaultHref="/in/despesas" backButton />
+      <Header title="Adicionar Meta" defaultHref="/in/metas" backButton />
       <IonContent>
         <div className="ion-margin">
           <FormProvider {...form}>
@@ -130,7 +130,7 @@ export const EdtDespesa = () => {
                 style={{ width: "100%" }}
                 type="submit"
               >
-                Concluir
+                Incluir Meta
               </IonButton>
             </form>
           </FormProvider>

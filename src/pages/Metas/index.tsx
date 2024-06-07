@@ -91,7 +91,7 @@ export const Metas = () => {
               </IonGrid>
             </IonCard>
 
-            <IonButton expand="full" color="dark">Nova Meta</IonButton>
+            <IonButton expand="full" color="dark" href='/in/novameta'>Nova Meta</IonButton>
 
           </div>
         )}
