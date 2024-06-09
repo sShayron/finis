@@ -14,6 +14,10 @@ export const Metas = () => {
     setSelectedTab(e.detail.value);
   };
 
+  const handleCardClick = () => {
+    router.push('/in/edtmeta');
+  };
+
   useEffect(() => {
     // Coloque qualquer lógica que precise ser executada ao abrir a página aqui
   }, []);
@@ -34,7 +38,7 @@ export const Metas = () => {
         {selectedTab === 'emAndamento' && (
           <div>
             {/* Conteúdo da Tab "Em Andamento" */}
-            <IonCard button={true}>
+            <IonCard button={true} onClick={handleCardClick}>
               <IonGrid>
                 <IonRow>
                   <IonCol size="auto" className="logo">
@@ -53,7 +57,7 @@ export const Metas = () => {
               </IonGrid>
             </IonCard>
 
-            <IonCard button={true}>
+            <IonCard button={true} onClick={handleCardClick}>
               <IonGrid>
                 <IonRow>
                   <IonCol size="auto" className="logo">
@@ -72,7 +76,7 @@ export const Metas = () => {
               </IonGrid>
             </IonCard>
 
-            <IonCard button={true}>
+            <IonCard button={true} onClick={handleCardClick}>
               <IonGrid>
                 <IonRow>
                   <IonCol size="auto" className="logo">

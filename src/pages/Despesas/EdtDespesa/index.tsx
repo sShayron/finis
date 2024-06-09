@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonContent, IonPage, IonSegment, IonSegmentButton, IonLabel, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonGrid, IonRow, IonCol, IonButton, IonInput, IonText, IonSelect, IonSelectOption } from '@ionic/react';
+import { IonContent, IonPage, IonSegment, IonSegmentButton, IonLabel, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonGrid, IonRow, IonCol, IonButton, IonInput, IonText, IonSelect, IonSelectOption, IonAlert } from '@ionic/react';
 import { useIonRouter } from '@ionic/react';
 import './styles.css';
 import { Button, Header, InputWithIcon } from "@components";
@@ -47,6 +47,12 @@ export const EdtDespesa = () => {
 
   const handleRecorrenciaChange = (value: string) => {
     setRecorrencia(value);
+  };
+
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleDelete = () => {
+    setShowAlert(true);
   };
 
   useEffect(() => {
@@ -132,6 +138,47 @@ export const EdtDespesa = () => {
               >
                 Concluir
               </IonButton>
+              <IonButton
+                color="danger"
+                onClick={handleDelete}
+                style={{ width: "100%" }}
+              >
+                Excluir Despesa
+              </IonButton>
+
+              {/* Alerta de confirmação */}
+              <IonAlert
+                isOpen={showAlert}
+                onDidDismiss={() => setShowAlert(false)}
+                header={'Confirmar Exclusão'}
+                message={'Você tem certeza que deseja excluir esta despesa?'}
+                buttons={[
+                  {
+                    text: 'Cancelar',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                      setShowAlert(false);
+                    }
+                  },
+                  {
+                    text: 'Excluir',
+                    handler: async () => {
+                      try {
+                        setLoading(true);
+                        console.log('Despesa excluída');
+                        // Chame a função de exclusão aqui
+                        // await client?.delete(`/income-expense/${id}`);
+                        // router.push("/in/despesas");
+                      } catch (e) {
+                        console.error(e);
+                      } finally {
+                        setLoading(false);
+                      }
+                    }
+                  }
+                ]}
+              />
             </form>
           </FormProvider>
         </div>
