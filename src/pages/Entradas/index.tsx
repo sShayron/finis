@@ -4,18 +4,18 @@ import { useIonRouter } from '@ionic/react';
 import './styles.css';
 import { Header } from "@components";
 
-import {home, flash, pizza, water } from 'ionicons/icons';
+import {home, flash, pizza, water, calendarNumber, statsChart, car } from 'ionicons/icons';
 
-export const Despesas = () => {
+export const Entradas = () => {
   const router = useIonRouter();
-  const [selectedTab, setSelectedTab] = useState('aPagar');
+  const [selectedTab, setSelectedTab] = useState('aReceber');
 
   const handleSegmentChange = (e: CustomEvent) => {
     setSelectedTab(e.detail.value);
   };
 
   const handleCardClick = () => {
-    router.push('/in/edtdespesa');
+    router.push('/in/edtentrada');
   };
 
   useEffect(() => {
@@ -24,31 +24,31 @@ export const Despesas = () => {
 
   return (
     <IonPage>
-      <Header title="Despesas" defaultHref="/in/home" backButton />
-      <IonContent className="ion-padding despesas-container">
+      <Header title="Entradas" defaultHref="/in/home" backButton />
+      <IonContent className="ion-padding entradas-container">
         <IonSegment value={selectedTab} onIonChange={handleSegmentChange}>
-          <IonSegmentButton value="aPagar">
-            <IonLabel>A pagar</IonLabel>
+          <IonSegmentButton value="aReceber">
+            <IonLabel>A receber</IonLabel>
           </IonSegmentButton>
-          <IonSegmentButton value="pagas">
-            <IonLabel>Pagas</IonLabel>
+          <IonSegmentButton value="recebidas">
+            <IonLabel>Recebidas</IonLabel>
           </IonSegmentButton>
         </IonSegment>
 
-        {selectedTab === 'aPagar' && (
+        {selectedTab === 'aReceber' && (
           <div>
-            {/* Conteúdo da Tab "A pagar" */}
+            {/* Conteúdo da Tab "A receber" */}
             <IonCard button={true} onClick={handleCardClick}>
               <IonGrid>
                 <IonRow>
                   <IonCol size="auto" className="logo">
-                    <IonIcon icon={home} size="large"></IonIcon>
+                    <IonIcon icon={calendarNumber} size="large"></IonIcon>
                   </IonCol>
                   <IonCol>
                     <IonCardHeader>
-                      <IonCardTitle>Financiamento Caixa</IonCardTitle>
+                      <IonCardTitle>Salário</IonCardTitle>
                     </IonCardHeader>
-                    <IonCardContent>R$1.500,00</IonCardContent>
+                    <IonCardContent>R$4.000,00</IonCardContent>
                   </IonCol>
                 </IonRow>
               </IonGrid>
@@ -58,13 +58,13 @@ export const Despesas = () => {
               <IonGrid>
                 <IonRow>
                   <IonCol size="auto" className="logo">
-                    <IonIcon icon={home} size="large"></IonIcon>
+                    <IonIcon icon={statsChart} size="large"></IonIcon>
                   </IonCol>
                   <IonCol>
                     <IonCardHeader>
-                      <IonCardTitle>Condominio</IonCardTitle>
+                      <IonCardTitle>Investimentos</IonCardTitle>
                     </IonCardHeader>
-                    <IonCardContent>R$600,00</IonCardContent>
+                    <IonCardContent>R$750,00</IonCardContent>
                   </IonCol>
                 </IonRow>
               </IonGrid>
@@ -74,52 +74,36 @@ export const Despesas = () => {
               <IonGrid>
                 <IonRow>
                   <IonCol size="auto" className="logo">
-                    <IonIcon icon={pizza} size="large"></IonIcon>
+                    <IonIcon icon={car} size="large"></IonIcon>
                   </IonCol>
                   <IonCol>
                     <IonCardHeader>
-                      <IonCardTitle>Alimentação</IonCardTitle>
+                      <IonCardTitle>Venda do Carro</IonCardTitle>
                     </IonCardHeader>
-                    <IonCardContent>R$900,00</IonCardContent>
+                    <IonCardContent>R$90.000,00</IonCardContent>
                   </IonCol>
                 </IonRow>
               </IonGrid>
             </IonCard>
 
-            <IonCard button={true} onClick={handleCardClick}>
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={flash} size="large"></IonIcon>
-                  </IonCol>
-                  <IonCol>
-                    <IonCardHeader>
-                      <IonCardTitle>Energia</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>R$250,00</IonCardContent>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonCard>
-
-            <IonButton expand="full" color="dark" href='/in/novadespesa'>Nova Despesa</IonButton>
+            <IonButton expand="full" color="dark" href='/in/novaentrada'>Nova Entrada</IonButton>
 
           </div>
         )}
-        {selectedTab === 'pagas' && (
+        {selectedTab === 'recebidas' && (
           <div>
-            {/* Conteúdo da Tab "Pagas" */}
+            {/* Conteúdo da Tab "Recebidas" */}
             <IonCard button={true}>
               <IonGrid>
                 <IonRow>
                   <IonCol size="auto" className="logo">
-                    <IonIcon icon={water} size="large"></IonIcon>
+                    <IonIcon icon={home} size="large"></IonIcon>
                   </IonCol>
                   <IonCol>
                     <IonCardHeader>
-                      <IonCardTitle>Água</IonCardTitle>
+                      <IonCardTitle>Venda de Imóvel</IonCardTitle>
                     </IonCardHeader>
-                    <IonCardContent>R$80,00</IonCardContent>
+                    <IonCardContent>R$800.000,00</IonCardContent>
                   </IonCol>
                 </IonRow>
               </IonGrid>
