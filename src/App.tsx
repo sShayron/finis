@@ -12,6 +12,9 @@ import { NovaDespesa } from "./pages/Despesas/AddDespesa";
 import { EdtDespesa } from "./pages/Despesas/EdtDespesa";
 import { NovaMeta } from "./pages/Metas/AddMeta";
 import { EdtMeta } from "./pages/Metas/EdtMeta";
+import { Entradas } from "./pages/Entradas";
+import { NovaEntrada } from "./pages/Entradas/AddEntrada";
+import { EdtEntrada } from "./pages/Entradas/EdtEntrada";
 
 import {
   AuthProvider,
@@ -75,6 +78,15 @@ const App: React.FC = () => (
                     </Route>
                     <Route exact path="/in/despesas">
                       <Despesas />
+                    </Route>
+                    <Route exact path="/in/entradas">
+                      <Entradas />
+                    </Route>
+                    <Route exact path="/in/novaentrada">
+                      <NovaEntrada />
+                    </Route>
+                    <Route exact path="/in/edtentrada">
+                      <EdtEntrada />
                     </Route>
                     <Route exact path="/in/novadespesa">
                       <NovaDespesa />
