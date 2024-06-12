@@ -1,25 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { IonContent, IonPage, IonButton, IonSelect, IonSelectOption } from '@ionic/react';
-import { useIonRouter } from '@ionic/react';
-import './styles.css';
+import React, { useState } from "react";
+import {
+  IonContent,
+  IonPage,
+  IonDatetime,
+  IonDatetimeButton,
+  IonModal,
+  IonLabel,
+} from "@ionic/react";
+import { useIonRouter } from "@ionic/react";
+import "./styles.css";
 import { Button, Header, InputWithIcon } from "@components";
-import { yupResolver } from '@hookform/resolvers/yup';
-import { MetaForm, schema } from '../meta.form';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import {cashOutline, pencilOutline} from 'ionicons/icons';
-import { AuthService } from '@services';
-import { useClient } from '@providers';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { MetaForm, schema } from "../meta.form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { cashOutline, pencilOutline } from "ionicons/icons";
+import { AuthService } from "@services";
+import { useClient, useToast } from "@providers";
 
 export const NovaMeta = () => {
   const router = useIonRouter();
-  const { client } = useClient();
+  const { client, banks } = useClient();
+  const toast = useToast();
   const [loading, setLoading] = useState(false);
   const form = useForm<MetaForm, MetaForm>({
     defaultValues: {
-      nome: "",
-      descricao: "",
-      valor: "",
-      categoria: "",
+      title: "",
+      description: "",
+      dateLimit: "",
     },
     resolver: yupResolver(schema),
   });
@@ -28,13 +35,14 @@ export const NovaMeta = () => {
     try {
       setLoading(true);
       console.log(data);
-      //await client?.post(
-      //  "/income-expense"
-      //);
-      //router.push("/in/metas");
+      await client?.post("/goal", { ...data, bankId: banks[0].id });
+      router.push("/in/metas");
+      toast.show("Meta adicionada com sucesso!", "success");
     } catch (e) {
       console.error(e);
+      toast.show("Erro ao adicionar meta!", "danger");
     } finally {
+      form.reset();
       setLoading(false);
     }
   };
@@ -53,48 +61,43 @@ export const NovaMeta = () => {
               className="w-100"
               onSubmit={form.handleSubmit(onSubmit, onInvalid)}
             >
-              <div>
-                <InputWithIcon
-                  label="Nome"
-                  name="nome"
-                  placeholder="Digite o nome"
-                  icon={pencilOutline}
-                />
+              <InputWithIcon
+                label="Titulo"
+                name="title"
+                placeholder="Digite o titulo"
+                icon={pencilOutline}
+              />
+              <InputWithIcon
+                label="Descrição"
+                name="description"
+                placeholder="Digite a descrição"
+                icon={pencilOutline}
+              />
+              <InputWithIcon
+                label="Valor"
+                name="value"
+                placeholder="R$ 00,00"
+                icon={cashOutline}
+              />
+
+              <div className="mb-2">
+                <IonLabel>Data limite</IonLabel>
               </div>
-              <div>
-                <InputWithIcon
-                  label="Descrição"
-                  name="descricao"
-                  placeholder="Digite a descrição"
-                  icon={pencilOutline}
-                />
+              <div className="mb-2">
+                <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
+
+                <IonModal keepContentsMounted={true}>
+                  <IonDatetime
+                    id="datetime"
+                    name="dateLimit"
+                    onIonChange={(e: any) => {
+                      console.log(e);
+                      form.setValue("dateLimit", e.detail.value!);
+                    }}
+                  ></IonDatetime>
+                </IonModal>
               </div>
-              <div>
-                <InputWithIcon
-                  label="Valor"
-                  name="valor"
-                  placeholder="R$ 00,00"
-                  icon={cashOutline}
-                />
-              </div>
-              <div>
-                <IonSelect label="Categoria" placeholder="Tipo da Meta" {...form.register("categoria")}>
-                  <IonSelectOption value="educacao">Educação</IonSelectOption>
-                  <IonSelectOption value="empreendimento">Empreendimento</IonSelectOption>
-                  <IonSelectOption value="imovel">Imóvel</IonSelectOption>
-                  <IonSelectOption value="investimento">Investimento</IonSelectOption>
-                  <IonSelectOption value="saude">Saúde</IonSelectOption>
-                  <IonSelectOption value="veiculo">Veículo</IonSelectOption>
-                  <IonSelectOption value="viagem">Viagem</IonSelectOption>
-                </IonSelect>
-              </div>
-              <IonButton
-                color="dark ion-vertical-margin"
-                style={{ width: "100%" }}
-                type="submit"
-              >
-                Incluir Meta
-              </IonButton>
+              <Button type="submit">Incluir Meta</Button>
             </form>
           </FormProvider>
         </div>

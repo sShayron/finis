@@ -1,42 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { IonContent, IonPage, IonSegment, IonSegmentButton, IonLabel, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonGrid, IonRow, IonCol, IonButton, IonInput, IonText, IonSelect, IonSelectOption } from '@ionic/react';
-import { useIonRouter } from '@ionic/react';
-import './styles.css';
+import { useState } from "react";
+import { IonContent, IonPage, IonSelect, IonSelectOption } from "@ionic/react";
+import { useIonRouter } from "@ionic/react";
+import "./styles.css";
 import { Button, Header, InputWithIcon } from "@components";
-import { yupResolver } from '@hookform/resolvers/yup';
-import { DespesaForm, schema } from '../despesa.form';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { calendarOutline, cashOutline, eyeOffOutline, mailOutline, pencilOutline, personOutline } from 'ionicons/icons';
-import { AuthService } from '@services';
-import { useClient } from '@providers';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { DespesaForm, schema } from "../despesa.form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { cashOutline, pencilOutline } from "ionicons/icons";
+import { useClient, useToast } from "@providers";
 
 export const NovaDespesa = () => {
   const router = useIonRouter();
-  const { client } = useClient();
+  const { client, banks } = useClient();
   const [loading, setLoading] = useState(false);
-  const [recorrencia, setRecorrencia] = useState('Única');
+  const toast = useToast();
   const form = useForm<DespesaForm, DespesaForm>({
     defaultValues: {
-      descricao: "",
-      valor: "",
-      recorrencia: "",
-      periodo: "",
-      categoria: "",
+      description: "",
+      value: "",
+      category: "",
     },
     resolver: yupResolver(schema),
   });
 
   const onSubmit: SubmitHandler<DespesaForm> = async (data) => {
     try {
+      if (loading) return;
       setLoading(true);
       console.log(data);
-      //await client?.post(
-      //  "/income-expense"
-      //);
-      //router.push("/in/despesas");
+      await client?.post("/income-expense", {
+        ...data,
+        bankId: banks[0].id,
+        type: "expense",
+      });
+      toast.show("Despesa adicionada com sucesso!", "success");
+      router.push("/in/despesas");
     } catch (e) {
       console.error(e);
+      toast.show("Erro ao cadastrar despesa!", "danger");
     } finally {
+      form.reset();
       setLoading(false);
     }
   };
@@ -44,14 +47,6 @@ export const NovaDespesa = () => {
   const onInvalid = (e: any) => {
     console.log(e);
   };
-
-  const handleRecorrenciaChange = (value: string) => {
-    setRecorrencia(value);
-  };
-
-  useEffect(() => {
-    form.setValue("recorrencia", recorrencia);
-  }, [form.setValue, recorrencia]);
 
   return (
     <IonPage>
@@ -63,61 +58,34 @@ export const NovaDespesa = () => {
               className="w-100"
               onSubmit={form.handleSubmit(onSubmit, onInvalid)}
             >
+              <InputWithIcon
+                label="Titulo"
+                placeholder="Digite o título da despesa"
+                name="title"
+                icon={pencilOutline}
+              />
+              <InputWithIcon
+                label="Descrição"
+                name="description"
+                placeholder="Digite a descrição"
+                icon={pencilOutline}
+              />
+              <InputWithIcon
+                label="Valor"
+                name="value"
+                placeholder="R$ 00,00"
+                icon={cashOutline}
+              />
               <div>
-                <InputWithIcon
-                  label="Descrição"
-                  name="descricao"
-                  placeholder="Digite a descrição"
-                  icon={pencilOutline}
-                />
-              </div>
-              <div>
-                <InputWithIcon
-                  label="Valor"
-                  name="valor"
-                  placeholder="R$ 00,00"
-                  icon={cashOutline}
-                />
-              </div>
-              <div>
-                <IonLabel>Recorrência</IonLabel>
-                <IonGrid>
-                  <IonRow>
-                    <IonCol>
-                      <IonButton expand="block" color={recorrencia === 'Única' ? 'primary' : 'medium'} onClick={() => handleRecorrenciaChange('Única')}>
-                        Única
-                      </IonButton>
-                    </IonCol>
-                    <IonCol>
-                      <IonButton expand="block" color={recorrencia === 'Semanal' ? 'primary' : 'medium'} onClick={() => handleRecorrenciaChange('Semanal')}>
-                        Semanal
-                      </IonButton>
-                    </IonCol>
-                    <IonCol>
-                      <IonButton expand="block" color={recorrencia === 'Mensal' ? 'primary' : 'medium'} onClick={() => handleRecorrenciaChange('Mensal')}>
-                        Mensal
-                      </IonButton>
-                    </IonCol>
-                    <IonCol>
-                      <IonButton expand="block" color={recorrencia === 'Anual' ? 'primary' : 'medium'} onClick={() => handleRecorrenciaChange('Anual')}>
-                        Anual
-                      </IonButton>
-                    </IonCol>
-                  </IonRow>
-                </IonGrid>
-              </div>
-              <div>
-                <InputWithIcon
-                  label="Período"
-                  name="periodo"
-                  placeholder="Digote o período"
-                  icon={calendarOutline}
-                />
-              </div>
-              <div>
-                <IonSelect label="Categoria" placeholder="Tipo de Despesa" {...form.register("categoria")}>
+                <IonSelect
+                  label="Categoria"
+                  placeholder="Tipo de Despesa"
+                  {...form.register("category")}
+                >
                   <IonSelectOption value="agua">Água</IonSelectOption>
-                  <IonSelectOption value="alimentacao">Alimentação</IonSelectOption>
+                  <IonSelectOption value="alimentacao">
+                    Alimentação
+                  </IonSelectOption>
                   <IonSelectOption value="energia">Energia</IonSelectOption>
                   <IonSelectOption value="internet">Internet</IonSelectOption>
                   <IonSelectOption value="moradia">Moradia</IonSelectOption>
@@ -125,13 +93,7 @@ export const NovaDespesa = () => {
                   <IonSelectOption value="outros">Outros</IonSelectOption>
                 </IonSelect>
               </div>
-              <IonButton
-                color="dark ion-vertical-margin"
-                style={{ width: "100%" }}
-                type="submit"
-              >
-                Incluir Despesa
-              </IonButton>
+              <Button type="submit">Incluir Despesa</Button>
             </form>
           </FormProvider>
         </div>

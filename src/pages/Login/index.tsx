@@ -37,7 +37,12 @@ export const Login = () => {
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     try {
       setLoading(true);
-      await login(data);
+      const res = await login(data);
+
+      if (!res) {
+        throw new Error("Invalid credentials");
+        return;
+      }
       show("Usuário autenticado com sucesso!", "success");
       router.push("/in/home");
     } catch (e) {

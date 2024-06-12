@@ -54,13 +54,32 @@ export const Home: React.FC = () => {
             <div
               className="d-grid gap-2"
               style={{
-                gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                gridTemplateColumns: "repeat(4, 1fr)",
               }}
             >
               <CardProgress title="Condomínio" progress={10} />
               <CardProgress title="Aluguel" progress={20} />
               <CardProgress title="Alimentação" progress={20} />
               <CardProgress title="Energia" progress={6} />
+            </div>
+          </div>
+
+          <div className="ion-margin">
+            <div className="mb-4">
+              <Title>Metas</Title>
+            </div>
+            <div className="mb-4">
+              <ProgressBar progresses={[10, 20, 30, 40]} />
+            </div>
+            <div
+              className="d-grid gap-2"
+              style={{
+                gridTemplateColumns: "repeat(4, 1fr)",
+              }}
+            >
+              <CardProgress title="Playstation" progress={10} />
+              <CardProgress title="Carro" progress={20} />
+              <CardProgress title="Bike" progress={20} />
             </div>
           </div>
         </div>

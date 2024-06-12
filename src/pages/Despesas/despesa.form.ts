@@ -1,17 +1,15 @@
 import * as yup from "yup";
 
 export interface DespesaForm {
-  descricao: string;
-  valor: string;
-  recorrencia: string;
-  periodo: string;
-  categoria: string;
+  title: string;
+  description: string;
+  value: string;
+  category: string;
 }
 
 export const schema = yup.object().shape({
-  descricao: yup.string().required("Insira uma descrição para sua despesa"),
-  valor: yup.string().required("Insira o valor sua despesa"),
-  recorrencia: yup.string().required("Insira a recorrencia da despesa"),
-  periodo: yup.string().required("Insira o periodo da sua despesa"),
-  categoria: yup.string().required("Insira a categoria da sua despesa"),
+  title: yup.string().required("Insira o título da sua despesa"),
+  description: yup.string().required("Insira uma descrição para sua despesa"),
+  value: yup.string().required("Insira o valor sua despesa"),
+  category: yup.string().required("Insira a categoria da sua despesa"),
 });

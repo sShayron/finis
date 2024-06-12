@@ -1,16 +1,41 @@
 import { AxiosInstance } from "axios";
-import { PropsWithChildren, createContext, useContext, useEffect } from "react";
+import {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useSession } from "./SessionVaultProvider";
 import { client } from "@client";
 import { useAuth } from "./AuthProvider";
 
-const ClientContext = createContext<{ client: AxiosInstance | null }>({
+type Bank = {
+  id: string;
+  userId: string;
+  code: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+const ClientContext = createContext<{
+  client: AxiosInstance | null;
+  banks: Bank[];
+}>({
   client: null,
+  banks: [],
 });
 
 export const ClientProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const session = useSession();
   const { logout } = useAuth();
+  const [banks, setBanks] = useState<Bank[]>([]);
+
+  const loadBanks = async () => {
+    const { data } = await client.get("/bank");
+    setBanks(data);
+  };
 
   useEffect(() => {
     if (session.session?.accessToken) {
@@ -18,6 +43,8 @@ export const ClientProvider: React.FC<PropsWithChildren> = ({ children }) => {
         config.headers.Authorization = `Bearer ${session.session?.accessToken}`;
         return config;
       });
+
+      loadBanks();
     }
   }, [session.session]);
 
@@ -33,7 +60,7 @@ export const ClientProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   return (
-    <ClientContext.Provider value={{ client }}>
+    <ClientContext.Provider value={{ client, banks }}>
       {children}
     </ClientContext.Provider>
   );

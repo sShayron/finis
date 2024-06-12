@@ -1,26 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { IonContent, IonPage, IonSegment, IonSegmentButton, IonLabel, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonGrid, IonRow, IonCol, IonButton } from '@ionic/react';
-import { useIonRouter } from '@ionic/react';
-import './styles.css';
-import { Header } from "@components";
+import React, { useState, useEffect } from "react";
+import {
+  IonContent,
+  IonPage,
+  IonSegment,
+  IonSegmentButton,
+  IonLabel,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonIcon,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonButton,
+} from "@ionic/react";
+import { useIonRouter } from "@ionic/react";
+import "./styles.css";
+import { Button, Header } from "@components";
 
-import { airplane, logoIonic, car, bicycle, home } from 'ionicons/icons';
+import { logoIonic, home, calendarNumber } from "ionicons/icons";
+import { client } from "@client";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { useLocation } from "react-router";
 
 export const Metas = () => {
   const router = useIonRouter();
-  const [selectedTab, setSelectedTab] = useState('emAndamento');
+  const [selectedTab, setSelectedTab] = useState("emAndamento");
+  const [metas, setMetas] = useState([] as any[]);
+  const location = useLocation();
+
+  const getMetas = async () => {
+    const res = await client?.get("/goal");
+    setMetas(res?.data);
+  };
 
   const handleSegmentChange = (e: CustomEvent) => {
     setSelectedTab(e.detail.value);
   };
 
   const handleCardClick = () => {
-    router.push('/in/edtmeta');
+    router.push("/in/edtmeta");
   };
 
   useEffect(() => {
-    // Coloque qualquer lógica que precise ser executada ao abrir a página aqui
-  }, []);
+    getMetas();
+  }, [location]);
 
   return (
     <IonPage>
@@ -35,71 +61,42 @@ export const Metas = () => {
           </IonSegmentButton>
         </IonSegment>
 
-        {selectedTab === 'emAndamento' && (
+        {selectedTab === "emAndamento" && (
           <div>
             {/* Conteúdo da Tab "Em Andamento" */}
-            <IonCard button={true} onClick={handleCardClick}>
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={airplane} size="large"></IonIcon>
-                  </IonCol>
-                  <IonCol>
-                    <IonCardHeader>
-                      <IonCardTitle>Viagem Internacional</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>Meta de R$15.000 para visitar a Disney</IonCardContent>
-                  </IonCol>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={logoIonic} size="large"></IonIcon>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonCard>
 
-            <IonCard button={true} onClick={handleCardClick}>
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={car} size="large"></IonIcon>
-                  </IonCol>
-                  <IonCol>
-                    <IonCardHeader>
-                      <IonCardTitle>Carro Novo</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>Meta de R$90.000 para Audi A3</IonCardContent>
-                  </IonCol>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={logoIonic} size="large"></IonIcon>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonCard>
+            {metas.map((meta) => (
+              <IonCard key={meta.id} button={true} onClick={handleCardClick}>
+                <IonGrid>
+                  <IonRow>
+                    <IonCol size="auto" className="logo">
+                      <IonIcon icon={calendarNumber} size="large"></IonIcon>
+                    </IonCol>
+                    <IonCol>
+                      <IonCardHeader>
+                        <IonCardTitle>{meta.title}</IonCardTitle>
+                      </IonCardHeader>
+                      <IonCardContent>
+                        {meta.description}{" "}
+                        {format(meta.dateLimit, "dd/MM/yyyy", { locale: ptBR })}
+                      </IonCardContent>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonCard>
+            ))}
 
-            <IonCard button={true} onClick={handleCardClick}>
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={bicycle} size="large"></IonIcon>
-                  </IonCol>
-                  <IonCol>
-                    <IonCardHeader>
-                      <IonCardTitle>Bicicleta</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>Meta de R$7.000 para Hupi Naja</IonCardContent>
-                  </IonCol>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={logoIonic} size="large"></IonIcon>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonCard>
-
-            <IonButton expand="full" color="dark" href='/in/novameta'>Nova Meta</IonButton>
-
+            <Button
+              type="button"
+              onClick={() => {
+                router.push("/in/novameta");
+              }}
+            >
+              Nova Meta
+            </Button>
           </div>
         )}
-        {selectedTab === 'conquistadas' && (
+        {selectedTab === "conquistadas" && (
           <div>
             {/* Conteúdo da Tab "Conquistadas" */}
             <IonCard button={true}>
@@ -112,7 +109,9 @@ export const Metas = () => {
                     <IonCardHeader>
                       <IonCardTitle>Casa Própia</IonCardTitle>
                     </IonCardHeader>
-                    <IonCardContent>Meta de R$300.000 para imóvel</IonCardContent>
+                    <IonCardContent>
+                      Meta de R$300.000 para imóvel
+                    </IonCardContent>
                   </IonCol>
                   <IonCol size="auto" className="logo">
                     <IonIcon icon={logoIonic} size="large"></IonIcon>

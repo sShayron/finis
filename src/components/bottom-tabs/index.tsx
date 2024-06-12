@@ -4,6 +4,7 @@ import { homeOutline, newspaperOutline, personOutline } from "ionicons/icons";
 
 export const BottomTabs = () => {
   const router = useIonRouter();
+
   return (
     <div className="bottom-tabs">
       <IonButton color="medium" fill="clear">
@@ -13,7 +14,11 @@ export const BottomTabs = () => {
         </div>
       </IonButton>
       <div className="center-button">
-        <IonButton color="dark" shape="round">
+        <IonButton
+          color="dark"
+          shape="round"
+          onClick={() => router.push("/in/home")}
+        >
           <IonIcon slot="icon-only" icon={homeOutline}></IonIcon>
         </IonButton>
       </div>

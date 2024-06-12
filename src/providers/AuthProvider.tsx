@@ -57,9 +57,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const login = async (body: { email: string; password: string }) => {
     try {
       const { data } = await AuthService.signIn(body);
-      if (data) {
-        await saveAuthResult(data);
-      }
+      await saveAuthResult(data);
       return data;
     } catch (e) {
       console.error(e);

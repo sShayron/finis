@@ -1,26 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import { IonContent, IonPage, IonSegment, IonSegmentButton, IonLabel, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonGrid, IonRow, IonCol, IonButton } from '@ionic/react';
-import { useIonRouter } from '@ionic/react';
-import './styles.css';
+import React, { useState, useEffect } from "react";
+import {
+  IonContent,
+  IonPage,
+  IonSegment,
+  IonSegmentButton,
+  IonLabel,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonIcon,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonButton,
+} from "@ionic/react";
+import { useIonRouter } from "@ionic/react";
+import "./styles.css";
 import { Header } from "@components";
 
-import { logoIonic, home, flash, pizza, water } from 'ionicons/icons';
+import {
+  home,
+  flash,
+  pizza,
+  water,
+  car,
+  gitNetwork,
+  receipt,
+} from "ionicons/icons";
+import { useClient } from "@providers";
+import { useLocation } from "react-router";
+
+const mapCategoryIcon = {
+  agua: water,
+  alimentacao: pizza,
+  moradia: home,
+  energia: flash,
+  veiculos: car,
+  internet: gitNetwork,
+  outros: receipt,
+};
 
 export const Despesas = () => {
   const router = useIonRouter();
-  const [selectedTab, setSelectedTab] = useState('aPagar');
+  const [selectedTab, setSelectedTab] = useState("aPagar");
+  const { client } = useClient();
+  const [despesas, setDespesas] = useState([] as any[]);
+
+  const location = useLocation();
 
   const handleSegmentChange = (e: CustomEvent) => {
     setSelectedTab(e.detail.value);
   };
 
   const handleCardClick = () => {
-    router.push('/in/edtdespesa');
+    router.push("/in/edtdespesa");
+  };
+
+  const getDespesas = async () => {
+    const res = await client?.get("/income-expense");
+    setDespesas(
+      res?.data.incomeExpense.filter((d: any) => d.type === "expense")
+    );
   };
 
   useEffect(() => {
-    // Coloque qualquer lógica que precise ser executada ao abrir a página aqui
-  }, []);
+    getDespesas();
+  }, [location]);
 
   return (
     <IonPage>
@@ -35,78 +81,48 @@ export const Despesas = () => {
           </IonSegmentButton>
         </IonSegment>
 
-        {selectedTab === 'aPagar' && (
+        {selectedTab === "aPagar" && (
           <div>
-            {/* Conteúdo da Tab "A pagar" */}
-            <IonCard button={true} onClick={handleCardClick}>
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={home} size="large"></IonIcon>
-                  </IonCol>
-                  <IonCol>
-                    <IonCardHeader>
-                      <IonCardTitle>Financiamento Caixa</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>R$1.500,00</IonCardContent>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonCard>
+            {despesas.map(({ title, description, value, category }) => (
+              <IonCard button={true} onClick={handleCardClick}>
+                <IonGrid>
+                  <IonRow>
+                    <IonCol size="auto" className="logo">
+                      <IonIcon
+                        icon={
+                          mapCategoryIcon[
+                            category as keyof typeof mapCategoryIcon
+                          ]
+                        }
+                        size="large"
+                      ></IonIcon>
+                    </IonCol>
+                    <IonCol>
+                      <IonCardHeader>
+                        <IonCardTitle>{title}</IonCardTitle>
+                      </IonCardHeader>
+                      <IonCardContent>
+                        {new Intl.NumberFormat("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        }).format(value)}
+                      </IonCardContent>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonCard>
+            ))}
 
-            <IonCard button={true} onClick={handleCardClick}>
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={home} size="large"></IonIcon>
-                  </IonCol>
-                  <IonCol>
-                    <IonCardHeader>
-                      <IonCardTitle>Condominio</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>R$600,00</IonCardContent>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonCard>
-
-            <IonCard button={true} onClick={handleCardClick}>
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={pizza} size="large"></IonIcon>
-                  </IonCol>
-                  <IonCol>
-                    <IonCardHeader>
-                      <IonCardTitle>Alimentação</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>R$900,00</IonCardContent>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonCard>
-
-            <IonCard button={true} onClick={handleCardClick}>
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="auto" className="logo">
-                    <IonIcon icon={flash} size="large"></IonIcon>
-                  </IonCol>
-                  <IonCol>
-                    <IonCardHeader>
-                      <IonCardTitle>Energia</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>R$250,00</IonCardContent>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonCard>
-
-            <IonButton expand="full" color="dark" href='/in/novadespesa'>Nova Despesa</IonButton>
-
+            <IonButton
+              expand="full"
+              color="dark"
+              onClick={() => router.push("/in/novadespesa")}
+            >
+              Nova Despesa
+            </IonButton>
           </div>
         )}
-        {selectedTab === 'pagas' && (
+        {selectedTab === "pagas" && (
           <div>
             {/* Conteúdo da Tab "Pagas" */}
             <IonCard button={true}>
