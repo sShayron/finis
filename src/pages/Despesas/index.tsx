@@ -14,8 +14,6 @@ import {
   IonRow,
   IonCol,
   IonButton,
-  IonFooter,
-  IonToolbar,
 } from "@ionic/react";
 import { useIonRouter } from "@ionic/react";
 import "./styles.css";
@@ -114,9 +112,16 @@ export const Despesas = () => {
                 </IonGrid>
               </IonCard>
             ))}
+
+            <IonButton
+              expand="full"
+              color="dark"
+              onClick={() => router.push("/in/novadespesa")}
+            >
+              Nova Despesa
+            </IonButton>
           </div>
         )}
-
         {selectedTab === "pagas" && (
           <div>
             {/* Conteúdo da Tab "Pagas" */}
@@ -138,17 +143,6 @@ export const Despesas = () => {
           </div>
         )}
       </IonContent>
-      <IonFooter>
-        <IonToolbar>
-          <IonButton
-            expand="full"
-            color="dark"
-            onClick={() => router.push("/in/novadespesa")}
-          >
-            Nova Despesa
-          </IonButton>
-        </IonToolbar>
-      </IonFooter>
     </IonPage>
   );
 };
