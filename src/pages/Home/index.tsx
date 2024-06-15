@@ -8,10 +8,14 @@ import {
   readerOutline,
   receiptOutline,
 } from "ionicons/icons";
+import { useDespesas, useMetas } from "@hooks";
 
 export const Home: React.FC = () => {
   const router = useIonRouter();
   const { session } = useSession();
+  const { metas, totalMetas } = useMetas(4);
+  const { despesas, totalIncomes } = useDespesas(4);
+
   return (
     <IonPage>
       <UserHeader session={session} />
@@ -49,7 +53,19 @@ export const Home: React.FC = () => {
               <Title>Contas a pagar</Title>
             </div>
             <div className="mb-4">
-              <ProgressBar progresses={[10, 20, 30, 40]} />
+              <ProgressBar
+                moreThan100Text="Atenção! Suas despesas estão comprometendo mais de 100% da sua renda."
+                moreThan188Type="danger"
+                id="despesas"
+                tooltip="Quanto cada despesa estão comprometendo da sua renda no mês."
+                progresses={
+                  despesas.map((despesa) => {
+                    const prog = (despesa.value / totalIncomes) * 100;
+                    return +prog.toFixed(1);
+                  }) as number[]
+                }
+                tips={despesas.map((despesa) => despesa.title) as string[]}
+              />
             </div>
             <div
               className="d-grid gap-2"
@@ -57,10 +73,15 @@ export const Home: React.FC = () => {
                 gridTemplateColumns: "repeat(4, 1fr)",
               }}
             >
-              <CardProgress title="Condomínio" progress={10} />
-              <CardProgress title="Aluguel" progress={20} />
-              <CardProgress title="Alimentação" progress={20} />
-              <CardProgress title="Energia" progress={6} />
+              {despesas.map((despesa) => {
+                const prog = (despesa.value / totalIncomes) * 100;
+                return (
+                  <CardProgress
+                    title={despesa.title}
+                    progress={+prog.toFixed(1)}
+                  />
+                );
+              })}
             </div>
           </div>
 
@@ -69,7 +90,15 @@ export const Home: React.FC = () => {
               <Title>Metas</Title>
             </div>
             <div className="mb-4">
-              <ProgressBar progresses={[10, 20, 30, 40]} />
+              <ProgressBar
+                id="metas"
+                tooltip="Quanto cada meta representa no valor total de metas estipulados."
+                progresses={metas.map((meta) => {
+                  const prog = (meta.value / totalMetas) * 100;
+                  return +prog.toFixed(1);
+                })}
+                tips={metas.map((meta) => meta.title)}
+              />
             </div>
             <div
               className="d-grid gap-2"
@@ -77,9 +106,15 @@ export const Home: React.FC = () => {
                 gridTemplateColumns: "repeat(4, 1fr)",
               }}
             >
-              <CardProgress title="Playstation" progress={10} />
-              <CardProgress title="Carro" progress={20} />
-              <CardProgress title="Bike" progress={20} />
+              {metas.map((meta) => {
+                const prog = (meta.value / totalMetas) * 100;
+                return (
+                  <CardProgress
+                    title={meta.title}
+                    progress={+prog.toFixed(1)}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

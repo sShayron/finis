@@ -1,10 +1,13 @@
 import { IonProgressBar, IonText } from "@ionic/react";
 import { CardProgressContainer } from "./styles";
+import { CardProgressEmpty } from "./empty";
 
 export const CardProgress: React.FC<{ title: string; progress: number }> = ({
   title,
   progress,
 }) => {
+  const empty = !title && !progress;
+  if (empty) return <CardProgressEmpty />;
   return (
     <CardProgressContainer>
       <IonText>

@@ -1,7 +1,12 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
 * {
-    --ion-color-primary: #FBBC05;
-    --padding-top: 1.5rem;
-    --padding-bottom: 1.5rem;
+  --ion-color-primary: #fbbc05;
+  --padding-top: 1.5rem;
+  --padding-bottom: 1.5rem;
+  --bottom-tabs-height: 70px;
+}
+
+ion-content {
+  --padding-bottom: calc(var(--bottom-tabs-height) + 1rem) !important;
 }
